@@ -1,12 +1,10 @@
 from django.db import models
 
+from user.models import User
 
-class workspace(models.Model):
-    def _auto_workspace_naming(self):
-        workspace_count = self.objects.count()
-        return f"workspace{workspace+1}"
+class Workspace(models.Model):
     
-    name = models.CharField(max_length=155, default=_auto_workspace_naming())
+    name = models.CharField(max_length=155, blank=False, null=False)
     github_url = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

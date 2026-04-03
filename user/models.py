@@ -1,6 +1,6 @@
 from django.db import models
 
-class user(models.Model):
+class User(models.Model):
     pseudo = models.CharField(max_length=155, unique=True, null=False)
     email = models.EmailField(null=False)
     hashedPassword = models.CharField(null=False)
