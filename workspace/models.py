@@ -10,7 +10,7 @@ class Workspace(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_name = "workspace"
+        db_table = "workspace"
 
     def __str__(self):
         return {"workspace: ": self.name, "github_url: ": self.github_url}
