@@ -1,19 +1,19 @@
 class WorkspaceMemberRole:
+    owner = "owner"
     admin = "admin"
     member = "member"
 
-class WorkspaceMemberStatus: 
-    inactive = "inactive"
+class WorkspaceMemberStatus:
     active = "active"
-
+    inactive = "inactive"
 
 WORKSPACE_MEMBER_ROLE = [
+    (WorkspaceMemberRole.owner, "Owner"),
     (WorkspaceMemberRole.admin, "Admin"),
-    (WorkspaceMemberRole.member, "Member")
+    (WorkspaceMemberRole.member, "Member"),
 ]
 
 WORKSPACE_MEMBER_STATUS = [
-    (WorkspaceMemberStatus.active, "Acvite"),
-    (WorkspaceMemberStatus.inactive, "Inactive")
+    (WorkspaceMemberStatus.active, "Active"),
+    (WorkspaceMemberStatus.inactive, "Inactive"),
 ]
-

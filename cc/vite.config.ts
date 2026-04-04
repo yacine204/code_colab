@@ -1,16 +1,23 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-export default defineConfig({
-  plugins: [react(),tailwindcss()],
-  server: {
-    proxy: {
-      '/compiler': {
-        target: 'https://api.onlinecompiler.io',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/compiler/, ''),
-      }
+export default defineConfig(({ mode }) => {
+    const env = loadEnv(mode, process.cwd(), '')
+
+    return {
+        plugins: [react(), tailwindcss()],
+        server: {
+            proxy: {
+                '/compiler': {
+                    target: 'https://api.onlinecompiler.io',
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/compiler/, ''),
+                    headers: {
+                        'Authorization': env.VITE_ONLINECOMPILER_KEY
+                    }
+                }
+            }
+        }
     }
-  }
-})
+})a

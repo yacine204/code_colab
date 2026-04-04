@@ -6,6 +6,9 @@ import Home from './pages/home'
 import CodeSpace from './pages/codeSpace'
 import Login from './pages/login'
 import Signup from './pages/signup'
+import UserProfile from './pages/user_profile'
+import Workspaces from './pages/workspaces'
+import CreateWorkspace from './pages/create_workspace'
 
 //components (testing)
 import Terminal from './components/terminal'
@@ -22,6 +25,9 @@ function App() {
         <Route path="/codespace" element={<CodeSpace></CodeSpace>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path='/signup' element={<Signup></Signup>}></Route>
+        <Route path='/profile' element={<UserProfile></UserProfile>}></Route>
+        <Route path='/workspaces' element={<Workspaces></Workspaces>}></Route>
+        <Route path='/create-workspace' element={<CreateWorkspace></CreateWorkspace>}></Route>
         {/* testing components */}
         <Route path="/coding" element={<Terminal language="" theme="" height="" width="" />}></Route>
         <Route path="/button" element={<Button context='hi lol'  color="#6366f1" trigger={()=>console.log('hi lol')}></Button>}></Route>

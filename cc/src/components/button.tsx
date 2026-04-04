@@ -1,4 +1,4 @@
-import { useTheme } from "../context/context"
+import { useTheme } from "../context/themeContext"
 
 interface ButtonProps {
   context: string

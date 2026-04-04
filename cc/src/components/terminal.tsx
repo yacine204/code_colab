@@ -2,7 +2,7 @@ import Editor from "@monaco-editor/react"
 import { useState } from "react"
 import { useExecuteCode } from "../hooks/executeCode"
 import Button from "./button"
-import { useTheme } from "../context/context"
+import { useTheme } from "../context/themeContext"
 
 const LANGUAGES = [
   { label: "Python",     value: "python" },
