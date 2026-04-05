@@ -25,6 +25,7 @@ function Login() {
         console.log(result?.data?.access)
         localStorage.setItem('access', result?.data?.access)
         localStorage.setItem('refresh', result?.data?.refresh)
+        navigate('/workspaces')
     }catch(err){
         console.log(err)
     }

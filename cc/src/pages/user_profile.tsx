@@ -4,7 +4,7 @@ import { InnerCard } from "../components/inner_card";
 import { SectionLabel } from "../components/section_label";
 import { WorkspaceList } from "../components/workspace_list";
 import HamburgerMenu from "../components/hamburger_menu";
-
+import NavBar from "../components/navbar";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
@@ -51,28 +51,9 @@ function UserProfile() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] p-8 flex justify-center">
-      <HamburgerMenu
-        avatar={user.avatar_url}
-        username={user.pseudo}
-        options={[
-          {
-            label: "Connect to GitHub",
-            icon: <GithubIcon />,
-            onClick: githubConnected ? () => {} : handleConnectGithub,
-          },
-          {
-            label: "Logout",
-            icon: <LogoutIcon />,
-            onClick: () => {
-              localStorage.removeItem("access");
-              window.location.href = "/login";
-            },
-            variant: "danger",
-          },
-        ]}
-      />
-
+    <div className="min-h-screen bg-[#0a0a0a] pt-20 px-8 pb-8 flex justify-center">
+      <NavBar></NavBar>
+      
       <div className="w-full max-w-4xl bg-[#111] border border-green-500/10 rounded-2xl p-6 flex flex-col gap-4">
         {/* top row */}
         <div className="grid grid-cols-[180px_1fr] gap-4">

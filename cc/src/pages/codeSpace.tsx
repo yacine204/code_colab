@@ -3,31 +3,25 @@ import FileExplorer from "../components/file_explorer";
 import { useState } from "react";
 import { useWorkspace } from "../context/workspaceContext";
 import useGithubRepo from "../hooks/github_repo";
-
-import HamburgerMenu from "../components/hamburger_menu";
 import { useUser } from "../context/userContext";
-import { useNavigate } from "react-router-dom";
-import { workspaceMemberApi } from "../api/workspace_member";
-import { useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
 
 function CodeSpace() {
   const user = useUser();
   const navigate = useNavigate();
   const { workspace } = useWorkspace();
+  const { workspaceId } = useParams();
   const [code, setCode] = useState<string>("");
   const [language, setLanguage] = useState<string>("python");
   const [commitMessage, setCommitMessage] = useState("");
   const [committing, setCommitting] = useState(false);
   const [prUrl, setPrUrl] = useState<string | null>(null);
   const [commitError, setCommitError] = useState<string | null>(null);
-  const { workspaceId } = useParams()
-  const handleLeave = async () => {
-    if (!workspace?.id) return navigate("/");
 
+  const handleLeave = async () => {
+    if (!workspace?.id) return navigate("/workspaces");
     const token = localStorage.getItem("access");
     await fetch(`http://localhost:8000/workspace-member/${workspaceId}/`, {
-      
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -81,35 +75,48 @@ function CodeSpace() {
 
   return (
     <div className="flex h-screen w-screen bg-[#1a1a1f] p-4 gap-3 overflow-hidden">
-      {/* LEFT — placeholder + git console */}
+
+      {/* LEFT — sidebar */}
       <div className="flex flex-col w-48 shrink-0 gap-3">
-        <div className="flex-1 bg-[#111116] border border-white/10 rounded-xl relative">
-          <HamburgerMenu
-            avatar={user?.avatar_url}
-            username={user?.pseudo}
-            options={[
-              {
-                label: "Leave Codespace",
-                icon: (
-                  <svg
-                    className="w-4 h-4 shrink-0"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                    />
-                  </svg>
-                ),
-                onClick: handleLeave,
-                variant: "danger",
-              },
-            ]}
-          />
+
+        {/* nav card */}
+        <div className="bg-[#111116] border border-white/10 rounded-xl p-3 flex flex-col gap-2">
+          {/* user */}
+          <div className="flex items-center gap-2 pb-2 border-b border-white/5">
+            {user?.avatar_url && (
+              <img src={user.avatar_url} className="w-6 h-6 rounded-full shrink-0" />
+            )}
+            <span className="text-xs text-zinc-400 truncate">{user?.pseudo}</span>
+          </div>
+
+          {/* workspace name */}
+          {workspace && (
+            <div className="text-[11px] text-zinc-600 font-mono truncate px-1">
+              📁 {workspace.name}
+            </div>
+          )}
+
+          {/* nav links */}
+          <button
+            onClick={() => navigate("/profile")}
+            className="text-xs text-left text-zinc-500 hover:text-zinc-300 hover:bg-white/5 px-2 py-1 rounded transition-colors"
+          >
+            Profile
+          </button>
+          <button
+            onClick={() => navigate("/workspaces")}
+            className="text-xs text-left text-zinc-500 hover:text-zinc-300 hover:bg-white/5 px-2 py-1 rounded transition-colors"
+          >
+            Workspaces
+          </button>
+
+          {/* leave */}
+          <button
+            onClick={handleLeave}
+            className="text-xs text-left text-red-400/60 hover:text-red-400 hover:bg-red-500/10 px-2 py-1 rounded transition-colors mt-1"
+          >
+            Leave Codespace
+          </button>
         </div>
 
         {/* git console */}
@@ -152,9 +159,7 @@ function CodeSpace() {
 
           {/* error */}
           {commitError && (
-            <span className="text-xs text-red-400 font-mono">
-              {commitError}
-            </span>
+            <span className="text-xs text-red-400 font-mono">{commitError}</span>
           )}
         </div>
       </div>
@@ -178,7 +183,6 @@ function CodeSpace() {
         <div className="flex-1 overflow-hidden">
           <FileExplorer
             onFileOpen={handleFileOpen}
-            // pass the hook so FileExplorer uses the same instance
             repoHook={{
               branches,
               tree,
@@ -201,6 +205,7 @@ function CodeSpace() {
           onCodeChange={handleCodeChange}
         />
       </div>
+
     </div>
   );
 }

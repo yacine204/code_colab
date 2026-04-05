@@ -7,7 +7,7 @@ import Button from "../components/button";
 import { workspaceMemberApi } from "../api/workspace_member";
 import { useUser } from "../context/userContext";
 import EditWorkspace from "../components/edit_workspace";
-
+import NavBar from "../components/navbar";
 const GithubIcon = () => (
   <svg
     width="12"
@@ -63,7 +63,8 @@ function Workspaces() {
   );
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] p-8 flex justify-center">
+    <div className="min-h-screen bg-[#0a0a0a] pt-20 px-8 pb-8 flex justify-center">
+      <NavBar></NavBar>
       <div className="w-full max-w-4xl bg-[#111] border border-green-500/10 rounded-2xl p-6">
         <div className="flex items-center justify-between mb-5">
           <div>
@@ -77,7 +78,7 @@ function Workspaces() {
           <Button
             context="+ New"
             variant="run"
-            trigger={() => navigate("/workspace/new")}
+            trigger={() => navigate("/codespace/new")}
           />
         </div>
 
@@ -97,7 +98,7 @@ function Workspaces() {
               <div className="flex flex-col gap-1.5 flex-1">
                 <span
                   className="text-sm font-semibold text-green-500 cursor-pointer hover:underline"
-                  onClick={() => navigate(`/workspace/${ws.id}`)}
+                  onClick={() => navigate(`/codespace/${ws.id}`)}
                 >
                   {ws.name}
                 </span>
