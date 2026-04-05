@@ -4,8 +4,8 @@ A collaborative coding platform with GitHub integration.
 
 ---
 
-https://github.com/user-attachments/assets/6621f134-d084-45ea-99c2-c52f93cdcfa4
 
+https://github.com/user-attachments/assets/8b74eb61-7ab3-4a6f-abfe-7e7159ccc868
 
 
 ## What it does
