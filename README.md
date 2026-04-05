@@ -30,13 +30,13 @@ https://github.com/user-attachments/assets/8b74eb61-7ab3-4a6f-abfe-7e7159ccc868
 
 ```bash
 # backend
-cd backend
+cd colab_code
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
 
 # frontend
-cd frontend
+cd cc
 npm install
 npm run dev
 ```
