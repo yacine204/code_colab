@@ -4,6 +4,10 @@ A collaborative coding platform with GitHub integration.
 
 ---
 
+https://github.com/user-attachments/assets/6621f134-d084-45ea-99c2-c52f93cdcfa4
+
+
+
 ## What it does
 
 - **GitHub OAuth** — connect your GitHub account
