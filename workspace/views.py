@@ -11,7 +11,7 @@ from . import services as workspace_services
 
 class WorkspaceViews(APIView):
     permission_classes = [IsAuthenticated]
-
+    
     def post(self, request: Request):
         new_workspace = workspace_services.create_workspace(request.data, request.user)
         if new_workspace is None:
@@ -31,10 +31,12 @@ class WorkspaceViews(APIView):
                 return Response({"error": "workspace not found"}, status=status.HTTP_404_NOT_FOUND)
             return Response(workspace, status=status.HTTP_200_OK)
         else:
-            mode = request.query_params.get("mode", "all")  
+            mode = request.query_params.get("mode", "all").strip('/')
             if mode == "active":
                 # only active membership
                 workspaces = workspace_services.get_active_workspace_for_user(request.user)
+                print(workspaces)
+                
             else:
                 # all owned 
                 workspaces = workspace_services.get_my_workspaces(request.user)

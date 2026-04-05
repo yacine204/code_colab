@@ -20,8 +20,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     description = models.CharField(max_length=255, blank=True, null=True)
     email = models.EmailField(unique=True)
     pfp = models.CharField(max_length=255, null=True, blank=True)
+    github_token = models.CharField(max_length=255, null= True, blank=True)
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
+    
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

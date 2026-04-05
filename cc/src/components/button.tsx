@@ -6,9 +6,10 @@ interface ButtonProps {
   variant?: "run" | "default"
   loading?: boolean
   className?:string
+
 }
 
-function Button({ context, trigger, variant = "default", loading = false, className="" }: ButtonProps) {
+function Button({ context, trigger, variant = "default", loading = false, className=""}: ButtonProps) {
   const { theme } = useTheme()
 
   const base = "px-3 py-1.5 text-sm font-medium rounded-md transition-colors duration-150 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"

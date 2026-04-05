@@ -22,7 +22,7 @@ function Login() {
   const handleSubmit = async () => {
     try{
         const result = await axios.post(AUTH_API.login, {email: form.email, password: form.password})
-        //console.log(result?.data?.access)
+        console.log(result?.data?.access)
         localStorage.setItem('access', result?.data?.access)
         localStorage.setItem('refresh', result?.data?.refresh)
     }catch(err){

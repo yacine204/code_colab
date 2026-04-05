@@ -5,16 +5,19 @@ import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from './context/themeContext.tsx'
 import { UserProvider } from './context/userContext.tsx'
+import { WorkspaceProvider } from './context/workspaceContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+ 
     <BrowserRouter>
       <ThemeProvider>
         <UserProvider>
-          <App />
+          
+            <App />
+          
         </UserProvider>
       </ThemeProvider>
     </BrowserRouter>
     
-  </StrictMode>,
+ ,
 )

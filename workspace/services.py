@@ -89,5 +89,5 @@ def get_active_workspace_for_user(user) -> Optional[dict]:
 
     if active_membership:
         return WorkspaceCreationSerializer(active_membership.workspace).data
-
+    print("user:",user)
     return None

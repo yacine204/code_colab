@@ -19,6 +19,9 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+GITHUB_CLIENT_ID     = os.getenv("GITHUB_CLIENT_ID")
+GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
+GITHUB_REDIRECT_URI  = "http://localhost:8000/api/auth/github/callback/"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
@@ -28,7 +31,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://localhost:5173/','127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -43,6 +46,7 @@ DJANGO_APPS = [
 ]
 
 EXTERNAL_APPS = [
+    'drf_spectacular',
     "rest_framework",
     'djoser',
     'corsheaders'
@@ -51,7 +55,8 @@ EXTERNAL_APPS = [
 OWN_APPS = [   
     'user',
     'workspace',
-    'workspace_member'
+    'workspace_member', 
+    'user_github_token'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -67,9 +72,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",
-]
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:8000']
 
 INSTALLED_APPS = EXTERNAL_APPS + DJANGO_APPS + OWN_APPS
 
@@ -157,6 +160,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
     ],

@@ -6,20 +6,17 @@ from typing import Optional
 import django.utils
 
 def join(user, workspace_id: int) -> Optional[dict]:
-    # must have been invited first
-    try:
-        member = WorkspaceMember.objects.get(
-            workspace_id=workspace_id,
-            member=user,
-        )
-    except WorkspaceMember.DoesNotExist:
-        return None
-
-    if member.status == WorkspaceMemberStatus.active:
-        return WorkspaceMemberSerializer(member).data
-    
-    member.status = WorkspaceMemberStatus.active
-    member.save()
+    member, created = WorkspaceMember.objects.get_or_create(
+        workspace_id=workspace_id,
+        member=user,
+        defaults={
+            "role": WorkspaceMemberRole.member,
+            "status": WorkspaceMemberStatus.active
+        }
+    )
+    if not created and member.status != WorkspaceMemberStatus.active:
+        member.status = WorkspaceMemberStatus.active
+        member.save()
     return WorkspaceMemberSerializer(member).data
 
 def invite(inviter, user_id: int, workspace_id: int) -> Optional[dict]:
